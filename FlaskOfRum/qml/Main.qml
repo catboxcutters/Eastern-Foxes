@@ -27,11 +27,29 @@ GameWindow {
     // the "logical size" - the scene content is auto-scaled to match the GameWindow size
     width: 480
     height: 320
+    Keys.onEnterPressed: {
+        scene.startSlotMachine()
+        console.log("enter pressed")
+    }
+    Keys.onSpacePressed: {
+        scene.startSlotMachine()
+        console.log("space pressed")
+    }
 
     // properties for the game
-    property int betAmount: 4 // amount to bet per line
-    property int creditAmount: 400 // player credit for gambling
+    property int betAmount: 1 // amount to bet per line
+    property int creditAmount: 50   // player credit for gambling
+//    Keys.forwardTo: keyboardController
+//    Item {
+//          id: keyboardController
 
+//          Keys.onPressed: {
+//            if (event.key === Qt.Key_Left && moveRelease.running === false) {
+//              event.accepted = true
+//              moveRelease.start()
+//              console.log("move Left")
+//            }
+//          }
     // animate credit amount when changed
     Behavior on creditAmount {
       PropertyAnimation { duration: scene.betAmount * 50 }
@@ -41,6 +59,10 @@ GameWindow {
     Rectangle {
       anchors.fill: scene.gameWindowAnchorItem
       color: "#1c1818"
+    }
+    GameSoundEffect {
+        id: spinsound
+
     }
 
     // add slot machine
@@ -100,7 +122,7 @@ GameWindow {
       anchors.bottom: scene.gameWindowAnchorItem.bottom
       anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter
 
-      // link signals to handler functions
+      // link signals to    handler functions
       onStartClicked: scene.startSlotMachine()
       onAutoClicked: scene.autoPlaySlotMachine()
       onIncreaseBetClicked: scene.increaseBetAmount()
@@ -115,8 +137,17 @@ GameWindow {
         return
 
       // increase bet amount to next bigger step
+
       if (betAmount < 5 && creditAmount >= 5)
         betAmount = 5
+      else if (betAmount < 4 && creditAmount >= 4)
+        betAmount = 4
+      else if (betAmount < 3 && creditAmount >= 3)
+        betAmount = 3
+      else if (betAmount < 2 && creditAmount >= 2)
+        betAmount = 2
+      else if (betAmount < 1 && creditAmount >= 1)
+        betAmount = 1
       else if (betAmount < 8 && creditAmount >= 8)
         betAmount = 8
       else if (betAmount < 10 && creditAmount >= 10)
@@ -125,6 +156,18 @@ GameWindow {
         betAmount = 15
       else if (betAmount < 20 && creditAmount >= 20)
         betAmount = 20
+      else if (betAmount < 25 && creditAmount >= 25)
+        betAmount = 25
+      else if (betAmount < 30 && creditAmount >= 30)
+        betAmount = 30
+      else if (betAmount < 35 && creditAmount >= 35)
+        betAmount = 35
+      else if (betAmount < 40 && creditAmount >= 40)
+        betAmount = 40
+      else if (betAmount < 45 && creditAmount >= 45)
+        betAmount = 45
+      else if (betAmount < 50 && creditAmount >= 50)
+        betAmount = 50
     }
 
     // decrease bet
@@ -134,7 +177,19 @@ GameWindow {
         return
 
       // decrease bet amount to next smaller step
-      if (betAmount > 15 && creditAmount >= 15)
+      if(betAmount > 45 && creditAmount >= 45)
+          betAmount=45
+      else if (betAmount > 40 && creditAmount >= 40)
+        betAmount = 40
+      else if (betAmount > 35 && creditAmount >= 35)
+        betAmount = 35
+      else if (betAmount > 30 && creditAmount >= 30)
+        betAmount = 30
+      else if (betAmount > 25 && creditAmount >= 25)
+        betAmount = 25
+      else if (betAmount > 20 && creditAmount >= 20)
+        betAmount = 20
+      else if (betAmount > 15 && creditAmount >= 15)
         betAmount = 15
       else if (betAmount > 10 && creditAmount >= 10)
         betAmount = 10
@@ -142,8 +197,14 @@ GameWindow {
         betAmount = 8
       else if (betAmount > 5 && creditAmount >= 5)
         betAmount = 5
-      else if (betAmount > 4)
+      else if (betAmount > 4 && creditAmount >= 4)
         betAmount = 4
+      else if (betAmount > 3 && creditAmount >= 3)
+        betAmount = 3
+      else if (betAmount > 2 && creditAmount >= 2)
+        betAmount = 2
+      else if (betAmount > 1&& creditAmount >= 1)
+        betAmount = 1
     }
 
     // set maximum bet
@@ -153,7 +214,15 @@ GameWindow {
         return
 
       // set bet amount to maximum affordable available step
-      if(creditAmount >= 20)
+      if(creditAmount >= 50)
+        betAmount = 50
+      else if(creditAmount >= 35)
+        betAmount = 35
+      else if(creditAmount >= 30)
+        betAmount = 30
+      else if(creditAmount >= 25)
+        betAmount = 25
+      else if(creditAmount >= 20)
         betAmount = 20
       else if(creditAmount >= 15)
         betAmount = 15
@@ -188,6 +257,10 @@ GameWindow {
         var stopInterval = utils.generateRandomValueBetween(500, 1000) // between 500 and 1000 ms
         slotMachine.spin(stopInterval)
       }
+      else if(slotMachine.spinning)
+      {
+          slotMachine.stop(0)
+      }
     }
 
     // when spin is finished -> validate result
@@ -195,7 +268,10 @@ GameWindow {
       bottomBar.startActive = false
       var won = winValidator.validate(slotMachine)
       if(won)
+      {
         winValidator.showWinningLines()
+
+      }
       else if(bottomBar.autoActive)
         startSlotMachine()
     }

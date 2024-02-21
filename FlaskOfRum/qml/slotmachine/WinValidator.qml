@@ -25,6 +25,14 @@ Item {
     ]
   }
 
+  function delay(delayTime, cb) {
+      timer = new Timer();
+      timer.interval = delayTime;
+      timer.repeat = false;
+      timer.triggered.connect(cb);
+      timer.start();
+  }
+
   WinningLine {
     id: line2
     visible: false
@@ -136,6 +144,42 @@ Item {
       {reel: 4, row: 2}
     ]
   }
+  Text {
+      id: bigwin
+      anchors.horizontalCenter: topBar
+      visible: false
+      text: "BOMBASTIC WIN!!11!1$$$$$"
+      font.family: "Impact"
+      font.pointSize: 30
+      color:"red"
+  }
+  Text {
+      id: mediumwin
+      anchors.horizontalCenter:topBar
+      visible: false
+      text: "HUGE WIN!!!!!"
+      font.family: "Impact"
+      font.pointSize: 30
+      color:"orange"
+  }
+  Text {
+      id: smallwin
+      anchors.horizontalCenter: topBar
+      visible: false
+      text: "BIG WIN!!"
+      font.family: "Impact"
+      font.pointSize: 30
+      color:"blue"
+  }
+  Text {
+      id: smallestwin
+      anchors.horizontalCenter: topBar
+      visible: false
+      text: "WIN!"
+      font.family: "Impact"
+      font.pointSize: 30
+      color:"green"
+  }
 
   // Timer to alternate display of multiple winning lines
   Timer {
@@ -193,7 +237,28 @@ Item {
       }
 
       // increase player credit by total win amount
+//      if(winAmount>500)
+//      {
+//          Text {
+//              text: "Hello World!"
+//              font.family: "Helvetica"
+//              font.pointSize: 24
+//              color: "red"
+//          }
+//      }
       scene.creditAmount += winAmount
+      if(winAmount>=500) {
+          bigwin.visible = true
+      }
+      else if(winAmount>=200){
+          mediumwin.visible=true
+      }
+      else if(winAmount>=100){
+          smallwin.visible=true
+      }
+      else if(winAmount>=50){
+          smallestwin.visible=true;
+      }
 
       // return true if player has won on at least 1 line
       return currentLines.length > 0
@@ -203,6 +268,10 @@ Item {
     function reset() {
       showTimer.stop()
       hideLines()
+      bigwin.visible=false
+      mediumwin.visible=false
+      smallwin.visible=false
+      smallestwin.visible=false
     }
 
     // shows lines that won

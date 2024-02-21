@@ -7,10 +7,10 @@ SlotMachineModel {
   // configure symbols and frequency of each symbol per reel
   symbols: {
     "rum":      {
-      frequency: 2,
+      frequency: 1,
       data: {
         source: "SymbolRum.png",
-        winFactor: [1, 20, 200]
+        winFactor: [1, 20, 40]   //winFactor: [1, 20, 200]
       }
     }, // 1 x flask of rum
 
@@ -18,55 +18,55 @@ SlotMachineModel {
       frequency: 5,
       data: {
         source: "Symbol10.png",
-        winFactor: [1, 5, 20]
+        winFactor: [1, 5, 10] //winFactor: [1, 5, 20]
       }
     }, // 5 x 10
 
     "J":        {
-      frequency: 5,
+      frequency: 4,
       data: {
         source: "SymbolJ.png",
-        winFactor: [1, 5, 20]
+        winFactor: [1, 5, 10] //winFactor: [1, 5, 20]
       }
     }, // 5 x J
 
     "Q":        {
-      frequency: 5,
+      frequency: 4,
       data: {
         source: "SymbolQ.png",
-        winFactor: [1, 5, 20]
+        winFactor: [1, 5, 10] //winFactor: [1, 5, 20]
       }
     }, // 5 x Q
 
     "K":        {
-      frequency: 4,
+      frequency: 3,
       data: {
         source: "SymbolK.png",
-        winFactor: [1, 8, 30]
+        winFactor: [1, 8, 15] //winFactor: [1, 5, 30]
       }
     }, // 4 x K
 
     "A":        {
-      frequency: 4,
+      frequency: 3,
       data: {
         source: "SymbolA.png",
-        winFactor: [1, 8, 30]
+        winFactor: [1, 8, 15] //winFactor: [1, 5, 30]
       }
     }, // 4 x A
 
     "parrot":   {
-      frequency: 4,
+      frequency: 3,
       data: {
         source: "SymbolParrot.png",
-        winFactor: [6, 20, 150]
+        winFactor: [6, 20, 30] //winFactor: [6, 20, 150]
       }
     }, // 3 x parrot
 
     "skull":    {
-      frequency: 3,
+      frequency: 2,
       data: {
         source: "SymbolSkull.png",
-        winFactor: [6, 20, 150]
+        winFactor: [6, 20, 30] //winFactor: [6, 20, 150]
       }
     }, // 3 x skull
 
@@ -74,7 +74,7 @@ SlotMachineModel {
       frequency: 2,
       data: {
         source: "SymbolTreasure.png",
-        winFactor: [8, 80, 400]
+        winFactor: [8, 20, 30] //winFactor: [8, 80, 400]
       }
     }, // 2 x treasure
 
@@ -82,7 +82,7 @@ SlotMachineModel {
       frequency: 1,
       data: {
         source: "SymbolCaptain.png",
-        winFactor: [20, 200, 1000]
+        winFactor: [20, 50, 100]    //winFactor: [20, 200, 1000]
       }
     }  // 1 x captain
   }
